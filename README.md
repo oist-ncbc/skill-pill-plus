@@ -1,4 +1,4 @@
-# Skill Pills+ 3rd Topic: Neural Coding and Brain
+# Skill Pills+ 3rd Topic: Neural Coding and Brain Computing
 
 This is a repository for the Skill Pills+ 3rd Topic: Neural Coding and Brain program, being conducted at OIST in Okinawa, Japan from November 8 to 10, 2019.
 
