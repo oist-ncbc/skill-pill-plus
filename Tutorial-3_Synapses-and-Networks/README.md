@@ -1,5 +1,5 @@
 # Synapses and Networks
 
-Material for the class on synapses and neuronal networks.
+Material for the tutorial on synapses and neuronal networks.
 
-Includes reference material for NEST, two-neuron example and Brunel network example.
+Includes reference material from NEST with two-neuron example and a Brunel network example.
