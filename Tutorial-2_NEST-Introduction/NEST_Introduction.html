@@ -13387,6 +13387,27 @@ For more information visit https://www.nest-simulator.org.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We may also retrieve some particular values for a given set of parameters:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
@@ -13607,10 +13628,10 @@ For more information visit https://www.nest-simulator.org.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#nest.GetConnections(spikegenerator)[0][1]</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -13628,7 +13649,7 @@ For more information visit https://www.nest-simulator.org.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### run simulation for 100ms</span>
@@ -13683,10 +13704,10 @@ For more information visit https://www.nest-simulator.org.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#nest.SetStatus(neuron,{&#39;V_th&#39;: -58.0}) # modifying the threshold</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -13696,10 +13717,10 @@ For more information visit https://www.nest-simulator.org.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#nest.SetStatus(neuron,{&#39;I_e&#39;: 300.0}) # modifying external current to LIF neuron to 300 pA</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -13711,7 +13732,9 @@ For more information visit https://www.nest-simulator.org.
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this neuron model, the membrane potential does not follow the biologically observed dynamics that neurons have. Their use is limited to understand and experiment with network dynamics and spiking activity.</p>
-<p>For comparison, let's observe the membrane potential of a <strong>Hodgkin-Huxley neuron model</strong>.</p>
+<p>For comparison, let's observe the membrane potential of a <strong>HH-neuron model</strong> (Hodgkin and Huxley, 1952). This model was the conclusion of a series of papers concerned with the flow of electric current through the surface membrane of the giant nerve fibre in the squid.</p>
+<p><img src="https://www.researchgate.net/publication/276491039/figure/fig2/AS:615036821184523@1523647613862/The-squid-giant-axon-The-giant-axon-is-a-very-large-up-to-1-mm-in-diameter-and-long.png" width=600 height=600></p>
+<p>Using voltage-clamp experiments and by varying extracellular sodium and potassium concentrations, Hodgkin and Huxley developed a model in which the properties of an excitable cell are described by a set of ordinary differential equations.  For simplicity, we will not focus on these equations. NEST's framework integrates these equations to obtain the instantaneous membrane potential. The following figure represents an electric circuit model of the neuron's membrane.</p>
 
 </div>
 </div>
@@ -13727,23 +13750,30 @@ For more information visit https://www.nest-simulator.org.
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The HH-model (Hodgkin and Huxley, 1952) considers the <em>ionic channels</em> present on the cellular membrane. These channels allows the conduction of specific types of ions. Sodium channels (Na+) are scarce inside the cell, so that when sodium channel opens, positive charges rush into the cell to cause excitation. Potassium ions (K+) are rich inside the cell, so that when potassium channel opens, positive charges rush out of the cell to cause inhibition. The model assumes a <em>leak</em> current composed of all other remaining ionic currents (Cl, Mg, etc.)</p>
-<p>This model is based on careful data analysis and follows the following equation:</p>
-$$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V) + I$$
+<p>The HH-model considers the <em>ionic channels</em> present on the cellular membrane. These channels allows the conduction of specific types of ions. Sodium channels (Na+) are scarce inside the cell, so that when sodium channel opens, positive charges rush into the cell to cause excitation. Potassium ions (K+) are rich inside the cell, so that when potassium channel opens, positive charges rush out of the cell to cause inhibition. The model assumes a <em>leak</em> current composed of all other remaining ionic currents (Cl, Mg, etc). Thus, from circuit analysis we can obtain the following equation:</p>
+$$C_m \frac{dV}{dt} = \bar{g_{Na}}m^3h(E_{Na}-V) + \bar{g_K}n^4(E_K-V) + g_{Leak}(E_{Leak}-V) + I$$
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>All these parameters can be seen and modified within the NEST framework for that particular neuron model!</p>
+<p>Where the conductances $g_{Na}$ and $g_{K}$ are:</p>
+$$ g_{Na} = \bar{g_{Na}}m^3h $$$$ g_{K} = \bar{g_K}n^4 $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see these parameters in NEST by creating a <code>hh_psc_alpha</code> neuron. A HH-model neuron with delta-shaped synaptic currents.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nest</span><span class="o">.</span><span class="n">ResetKernel</span><span class="p">()</span> <span class="c1"># reset simulation kernel</span>
@@ -13756,7 +13786,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create Hodgkin-Huxley neuron with delta-shaped synaptic currents.</span>
@@ -13770,7 +13800,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># get the parameter list and values of a node</span>
@@ -13787,7 +13817,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -13853,7 +13883,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a spike generator</span>
@@ -13867,7 +13897,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># modify spike generation with times 10 and 50 ms</span>
@@ -13881,7 +13911,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a voltmeter</span>
@@ -13895,7 +13925,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create add a spikedetector!</span>
@@ -13909,7 +13939,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># connect spike generator with a given synaptic specification (weight)</span>
@@ -13927,7 +13957,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### run simulation for 100ms</span>
@@ -13982,7 +14012,20 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spikes</span><span class="o">=</span><span class="n">nest</span><span class="o">.</span><span class="n">GetStatus</span><span class="p">(</span><span class="n">spikedetector</span><span class="p">,</span> <span class="s2">&quot;n_events&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -14021,6 +14064,19 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -14030,7 +14086,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nest</span><span class="o">.</span><span class="n">ResetKernel</span><span class="p">()</span> <span class="c1"># reset simulation kernel</span>
@@ -14059,7 +14115,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># simulation time</span>
@@ -14093,7 +14149,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># neuron parameter</span>
@@ -14132,7 +14188,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set default neuron parameters</span>
@@ -14146,7 +14202,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create two &#39;iaf_psc_delta&#39; neurons</span>
@@ -14168,7 +14224,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># supply the first neuron with the constant current I_ext</span>
@@ -14190,7 +14246,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create Poisson generator with rate nu_ext</span>
@@ -14212,7 +14268,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create two multimeter to record membrane potential of the neurons</span>
@@ -14240,7 +14296,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># connect devices to neurons</span>
@@ -14266,7 +14322,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># simulate</span>
@@ -14354,7 +14410,7 @@ $$C_m \frac{dV}{dt} = g_{Na}m^3h(E_{Na}-V) + g_Kn^4(E_K-V) + g_{Leak}(E_{Leak}-V
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># calculate and print firing rate of neurons</span>
@@ -14392,20 +14448,66 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What!? There are no spikes?! Well, look at the figures and consider the threshold potential value <code>V_th</code>. Let's try increasing the synaptic strengh <code>J</code>. The neuron receiving Poisson input will be in different firing rate regimes!</p>
-<p><strong>6.- Try to make the neuron fire at an irregular regime.</strong> (J=0.09)</p>
-<p><strong>7.- Try to make the neuron spike at a regular regime.</strong>  (J=0.11)</p>
+<p><strong>6.- Try to make the neuron fire at an irregular regime.</strong></p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>7.- Try to make the neuron spike at a regular regime.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since we are using the LIF neuron model you will not be able to see <em>proper</em> spikes. Instead, you will only see the after-spike dynamics (membrane potential reset and refractory period).</p>
-<p><strong>8.- Repeat the simulations with the HH neuron model</strong></p>
+<p><strong>8.- Try to make HH neuron models spike at a regular regime for both input conditions.</strong></p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -14424,7 +14526,7 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># neuron parameter</span>
@@ -14449,7 +14551,7 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">FI_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">I_e</span><span class="o">=</span><span class="p">(</span><span class="mf">200.0</span><span class="p">,</span><span class="mf">600.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">T_sim</span><span class="o">=</span><span class="mf">1e3</span><span class="p">):</span>
@@ -14478,7 +14580,7 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rates</span> <span class="o">=</span> <span class="n">FI_curve</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">neuron_params</span><span class="p">)</span>
@@ -14492,7 +14594,7 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -14547,13 +14649,39 @@ Rate of neuron stimulated with Poisson input:  0.0
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>10.- Repeat these simulations with the HH neuron model</strong></p>
+<p><strong>10.- Repeat these simulations with the HH neuron model <code>hh_psc_alpha</code> by modifying channel conductances.</strong></p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
